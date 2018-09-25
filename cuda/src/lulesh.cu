@@ -274,7 +274,7 @@ void cuda_init(int rank)
     Int_t deviceCount, dev;
     cudaDeviceProp cuda_deviceProp;
     
-    cudaSafeCall( cudaGetDeviceCount(&deviceCount) );
+    cudaGetDeviceCount(&deviceCount);
     if (deviceCount == 0) {
         fprintf(stderr, "cuda_init(): no devices supporting CUDA.\n");
         exit(1);
@@ -288,7 +288,7 @@ void cuda_init(int rank)
         exit(1);
     }
 
-    cudaSafeCall( cudaSetDevice(dev) );
+    cudaSetDevice(dev);
 
     struct cudaDeviceProp props;
     cudaGetDeviceProperties(&props, dev);
@@ -298,7 +298,7 @@ void cuda_init(int rank)
 
     printf("Host %s using GPU %i: %s\n", hostname, dev, props.name);
 
-    cudaSafeCall( cudaGetDeviceProperties(&cuda_deviceProp, dev) );
+    cudaGetDeviceProperties(&cuda_deviceProp, dev);
     if (cuda_deviceProp.major < 3) {
         fprintf(stderr, "cuda_init(): This implementation of Lulesh requires device SM 3.0+.\n", dev);
         exit(1);
